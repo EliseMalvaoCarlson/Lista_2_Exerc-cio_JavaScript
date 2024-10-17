@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Separar Pares e Ímpares</title>
+</head>
+<body>
+    <h1>Separar Números Pares e Ímpares</h1>
+    <label for="numeros">Digite os números separados por vírgula:</label>
+    <input type="text" id="numeros" placeholder="Ex: 1,2,3,4,5">
+    <button onclick="processarNumeros()">Separar</button>
+
+    <h2>Resultado:</h2>
+    <div id="resultado"></div>
+
+    <script>
+        function separarParesImpares(numeros) { //Define uma função chamada separarParesImpares que recebe um parâmetro numeros, que é esperado ser um array de números
+            const resultado = { //Cria um objeto resultado com duas propriedades: pares e impares, ambas inicializadas como arrays vazios
+                pares: [],
+                impares: []
+            };
+
+            numeros.forEach(numero => { //Usa o método forEach para iterar sobre cada elemento do array numeros
+                if (numero % 2 == 0) { // obs - o método forEach "anda" por cada elemento do array e faz algo com cada um deles
+                    resultado.pares.push(numero);
+                } else {
+                    resultado.impares.push(numero);
+                }
+            });
+
+            return resultado; //A função retorna o objeto resultado contendo os arrays de números pares e ímpares.
+        }
+
+        function processarNumeros() { //Definição da função
+            const input = document.getElementById('numeros').value; //Obtém o valor digitado no campo de entrada com o ID numeros
+            const numeros = input.split(',').map(Number); //Divide a string de entrada em um array de strings usando a vírgula como delimitador e, em seguida, converte cada string em um número usando map(Number).
+            const separados = separarParesImpares(numeros); //Chama a função separarParesImpares com o array de números e armazena o resultado na variável separados.
+
+            const resultadoDiv = document.getElementById('resultado'); //Obtém a <div> com o ID resultado e atualiza seu conteúdo HTML para exibir os números pares e ímpares separados.
+            resultadoDiv.innerHTML = `
+                <p>Pares: ${separados.pares.join(', ')}</p>
+                <p>Ímpares: ${separados.impares.join(', ')}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
